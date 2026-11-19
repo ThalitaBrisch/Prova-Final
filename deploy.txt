@@ -1,0 +1,28 @@
+df = df.iloc[:,:]
+
+df.columns = [
+    "total",
+    "total_livres",
+    "total_escravizados",
+    "homens_livres",
+    "homens_escravizados",
+    "mulheres_livres",
+    "mulheres_escravizadas"
+]
+
+col_homens_livres = "homens_livres"
+col_homens_escravizados = "homens_escravizados"
+col_mulheres_livres = "mulheres_livres"
+col_mulheres_escravizados = "mulheres_escravizadas"
+
+filtro = ["Porto Alegre", "Belo Horizonte", "Curitiba", "Salvador", "Florianópolis"]
+
+df_filtrado = df[df["NOME DO MUNICÍPIO"].isin(filtro)]
+
+pop = (
+    df_filtrado.groupby(["NOME DO MUNICÍPIO"], as_index=False)
+      .agg(
+          populacao_2010=(col_2010, "sum"),
+          populacao_2022=(col_2022, "sum"),
+      )
+)
